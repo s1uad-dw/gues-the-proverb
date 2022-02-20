@@ -4,61 +4,89 @@ using UnityEngine;
 using UnityEngine.UI;
 using Parser;
 using DataController;
-
+using UnityEngine.SceneManagement;
 public class SoloGameSceneManager : MonoBehaviour
 {
-    public int x, y;
+    public int y;
     public Text TextBox;
     public InputField InputBox;
     public Text LevelInfoTextBox;
     public Text LettersTextBox;
     CreateProverb createProverb = new CreateProverb();
     JSONController json = new JSONController();
-    System.Random rnd = new System.Random();
-    private string DataPath;
+    public string DataPath;
     void Start()
     {
         DataPath = Application.persistentDataPath + "/Data.json";
-        x = 0; y = 0;
+        y = -1;
         json.LoadFromJson(DataPath);
-        if (json.data.level>=json.data.proverbs.GetLength(0)){TextBox.text = "Ïîçäðàâëÿþ, âû ïðîøëè èãðó...";}
-        else
+        if (json.data.level < json.data.proverbs.GetLength(0))
         {
             createProverb.WordsList(json.data.level);
-            LevelInfoTextBox.text = "ÓÐÎÂÅÍÜ " + (json.data.level+1);
-            UpdateTextBox();
-            TouchScreenKeyboard.Android.closeKeyboardOnOutsideTap = false;
+            LevelInfoTextBox.text = "ÓÐÎÂÅÍÜ " + (json.data.level + 1);
+            UpdateAll();
         }
-        
     }
 
     // Update is called once per frame
-    public void UpdateTextBox(){
-        InputBoxManager();
-        if (createProverb.Proverb[y, 2] != null && json.data.level < json.data.proverbs.GetLength(0)) { TextBox.text = createProverb.Proverb[y, 2]; AnnotationManager(); InputBox.ActivateInputField();; }
-        else  if (json.data.level < json.data.proverbs.GetLength(0)){ y = 0; LevelUp(); createProverb.WordsList(json.data.level); TextBox.text = createProverb.Proverb[y, 2]; AnnotationManager(); InputBox.ActivateInputField(); }
-    }
-    public void LevelUp(){
-        json.data.level += 1;
-        LevelInfoTextBox.text = "ÓÐÎÂÅÍÜ " + (json.data.level+1);
-        json.SaveToJson(DataPath);
+    public void UpdateAll()
+    {
+        y += 1;
 
+        json.LoadFromJson(DataPath);
+        if (createProverb.Proverb[y, 2] != null)
+        {
+
+            InputBox.GetComponentInChildren<Text>().fontSize = createProverb.Proverb[y, 1] != null && createProverb.Proverb[y, 1].Length < 15 ? 50 : 30;
+            LettersTextBox.fontSize = createProverb.Proverb[y, 3].Length < 15 ? 50 : 30;
+
+            TextBox.text = createProverb.Proverb[y, 2];
+            InputBox.text = "";
+            LettersTextBox.text = createProverb.Proverb[y, 3];
+
+            InputBox.ActivateInputField();
+            TouchScreenKeyboard.Android.closeKeyboardOnOutsideTap = false; 
+        }
+        else
+        {
+            y = -1;
+            if (json.data.proverbs.GetLength(0) - json.data.level > 1)
+            {
+                json.data.level += 1;
+                json.SaveToJson(DataPath);
+                LevelInfoTextBox.text = "ÓÐÎÂÅÍÜ " + (json.data.level+1);
+                createProverb.WordsList(json.data.level);
+                UpdateAll();
+            }
+            
+        }
     }
     public void ButtonReadyPressed()
     {
-        if (InputBox.text.ToUpper().Replace('¨', 'Å') == createProverb.Proverb[y, 0].Replace('¨', 'Å')){ y += 1; UpdateTextBox(); InputBoxManager(); }
+        if (InputBox.text.ToUpper().Replace('¨', 'Å') == createProverb.Proverb[y, 0].Replace('¨', 'Å'))
+        {
+            json.data.RightAnswerQuantity += 1;
+            json.SaveToJson(DataPath);
+            //êîðóòèíà
+            UpdateAll();
+        }
+        else
+        {
+            json.data.UnrightAnswerQuantity += 1;
+            json.SaveToJson(DataPath);
+        }
     }
     public void ButtonHintPressed()
     {
         TextBox.text = createProverb.Proverb[y, 1];
         InputBox.ActivateInputField();
+        json.data.HintQuantity += 1;
+        json.SaveToJson(DataPath);
     }
-    public void InputBoxManager(){
-        InputBox.GetComponentInChildren<Text>().fontSize = createProverb.Proverb[y, 1].Length < 15 ? 50 : 30;
-        InputBox.text = "";}
-    public void AnnotationManager(){
-        LettersTextBox.fontSize = createProverb.Proverb[y, 3].Length < 15 ? 50 : 30;
-        LettersTextBox.text = createProverb.Proverb[y, 3];
-        print(createProverb.Proverb[y, 3]);
+    public void ButtonMenuPressed()
+    {
+        json.SaveToJson(DataPath);
+        json.LoadFromJson(DataPath);
+        SceneManager.LoadScene(0);
     }
 }

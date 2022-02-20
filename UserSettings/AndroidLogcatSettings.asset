@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R9JN80P7M4J",
         "name": "com.DefaultCompany.com.unity.template.mobile2D",
-        "processId": 5621,
+        "processId": 24722,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,6 +12,12 @@
             "deviceId": "R9JN80P7M4J",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 5621,
+            "exited": true
+        },
+        {
+            "deviceId": "R9JN80P7M4J",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 24722,
             "exited": false
         }
     ],

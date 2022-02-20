@@ -18,15 +18,18 @@ namespace Parser
             string MixedFullProverb = String.Join(" ", Words.ToArray());
             Words.Reverse(); Words.Add(FirstWord); Words.Remove(FirstWord); Words.Reverse();
             string FullProverbHint = String.Join(" ", Words.ToArray());
-            //[слово, подсказка, вывод]
+            //[слово, подсказка, вывод, отсутствующие буквы/описание]
             for (int y = 0; y < Proverb.GetLength(0); y++){
                 if (Words.Count > y && Words[y].Length > 3){
-                    Proverb[y, 0] = Words[y];
-                    string Letters = " ";
+                    Proverb[y, 0] = Words[y];string Letters = " ";
                     for (int k = 0; k < Words[y].Length / 2; k++){
                         if (Words[y].Length / 2 == k + 1) { Proverb[y, 1] = Words[y]; }
                         int RandomChar = rnd.Next(0, Words[y].Length);
-                        if (Words[y][RandomChar] != '?'){ Letters += Words[y][RandomChar] + " "; Words[y] = Words[y].Replace(Words[y][RandomChar], '?');}
+                        if (Words[y][RandomChar] != '?'){int Quantity = 0;
+                            foreach (var item in Words[y]){  Quantity += item == Words[y][RandomChar] ? 1 : 0;}
+                            for (int b = 0; b < Quantity-1; b++){Letters += Words[y][RandomChar] + " "; k += 1;}
+                            Letters += Words[y][RandomChar] + " ";
+                            Words[y] = Words[y].Replace(Words[y][RandomChar], '?');}
                         else { k -= 1; }}
                     Proverb[y, 2] = Words[y]; Proverb[y, 3] = Letters; }
                 else if (Words.Count > y) { Words.Remove(Words[y]); y -= 1; }
