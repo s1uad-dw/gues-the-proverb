@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SoloGameScene.unity
     guid: 4318b94015ca06e44a25848b0a156ab8
+  - enabled: 1
+    path: Assets/Scenes/PartyRegistrationScene.unity
+    guid: b7aae1df6a0ac184b90e710d16ee1475
   m_configObjects: {}

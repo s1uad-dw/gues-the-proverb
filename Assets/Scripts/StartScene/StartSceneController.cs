@@ -10,7 +10,8 @@ public class StartSceneController : MonoBehaviour
     public Text UnrightAnswerQuantity;
     JSONController json = new JSONController();
 
-    public void SoloGameButtonPressed() {SceneManager.LoadScene(1);}
+    public void ButtonSoloGamePressed() {SceneManager.LoadScene(1);}
+    public void ButtonPartyGamePressed() { SceneManager.LoadScene(2); }
     public void ButtonStatisticPressed()
     {
         json.LoadFromJson(Application.persistentDataPath + "/Data.json");

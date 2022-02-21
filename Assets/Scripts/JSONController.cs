@@ -1,7 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using UnityEngine;
 
 namespace DataController
 {
@@ -29,6 +29,12 @@ namespace DataController
         public int UnrightAnswerQuantity;
         public int PartyPlayersQuantity;
         public int PartyProverbsQuantity;
+        public int PartyStep = 1;
+        public int RegistrationCurrentPlayer = 1;
+        public int CurrentPlayer;
+        public List<int> UsedProverbs = new List<int>();
+        //public Dictionary<string, int[]> oaoaoaoa = new Dictionary<string, int[]>();
+        public List<string[]> Players = new List<string[]>();
         public string[,] proverbs =  
         {
             { "ÍÅ ÏËÞÉ Â ÊÎËÎÄÅÖ ÏÐÈÃÎÄÈÒÑ‗ ÂÎÄÛ ÍÀÏÈÒÜÑ‗", "Íו סעמטע ןמנעטעü עמ, קעמ למזוע עובו ןנטדמהטעüסÿ." },
