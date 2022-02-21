@@ -50,8 +50,7 @@ public class RegisgrationSceneManager : MonoBehaviour
         if (InputBox.text != ""){
             json.data.Players.Add(new string[] { InputBox.text, "0", "0", "0" });
             json.data.RegistrationCurrentPlayer += 1;
-            json.SaveToJson(DataPath);
-        }
+            json.SaveToJson(DataPath);}
         else { json.data.PartyStep -= 1; }
     }
 

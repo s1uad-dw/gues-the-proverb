@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,16 +30,13 @@ public class PartyGameSceneManager : MonoBehaviour
     // Update is called once per frame
     public void UpdatePlayer()
     {
-        //корутина
-        
-        print("current player -------- " + json.data.CurrentPlayer);
         PlayerInfoTextBox.text = json.data.Players[json.data.CurrentPlayer][0];
         int RandomValue = rnd.Next(0, json.data.proverbs.GetLength(0) - 1);
-        while (json.data.UsedProverbs.Contains(RandomValue) && json.data.proverbs.GetLength(0)-1!=json.data.UsedProverbs.Count) {RandomValue = rnd.Next(0, json.data.proverbs.GetLength(0) - 1);}
-        print("random value -------- " + RandomValue);
+        while (json.data.UsedProverbs.Contains(RandomValue) && json.data.proverbs.GetLength(0) - 1 > json.data.UsedProverbs.Count) { 
+            RandomValue = rnd.Next(0, json.data.proverbs.GetLength(0) - 1); }
         json.data.UsedProverbs.Add(RandomValue);
         json.SaveToJson(DataPath);
-        createProverb.WordsList(RandomValue); 
+        createProverb.WordsList(RandomValue);
         UpdateContent();
     }
     public void UpdateContent()
@@ -46,9 +44,7 @@ public class PartyGameSceneManager : MonoBehaviour
         y += 1;
 
         json.LoadFromJson(DataPath);
-        if (createProverb.Proverb[y, 2] != null)
-        {
-
+        if (createProverb.Proverb[y, 2] != null){
             InputBox.GetComponentInChildren<Text>().fontSize = createProverb.Proverb[y, 1] != null && createProverb.Proverb[y, 1].Length < 15 ? 50 : 30;
             LettersTextBox.fontSize = createProverb.Proverb[y, 3].Length < 15 ? 50 : 30;
 
@@ -59,7 +55,11 @@ public class PartyGameSceneManager : MonoBehaviour
             InputBox.ActivateInputField();
             TouchScreenKeyboard.Android.closeKeyboardOnOutsideTap = false;
         }
-        else{ json.data.CurrentPlayer = json.data.CurrentPlayer < json.data.Players.Count ? json.data.CurrentPlayer + 1 : 0; y = -1; UpdatePlayer(); }
+        else{ 
+            json.data.CurrentPlayer = json.data.CurrentPlayer < json.data.Players.Count-1 ? json.data.CurrentPlayer + 1 : 0; 
+            y = -1; 
+            UpdatePlayer(); 
+        }
 
     }
     public void ButtonReadyPressed()
@@ -84,4 +84,11 @@ public class PartyGameSceneManager : MonoBehaviour
         json.data.HintQuantity += 1;
         json.SaveToJson(DataPath);
     }
+    //public IEnumerator TextBoxMessage(float time, string Message)
+    //{
+    //    string Storage = TextBox.text;
+    //    TextBox.text = Message;
+    //    yield return new WaitForSeconds(time * 5);
+    //    TextBox.text = Storage;
+    //}
 }
