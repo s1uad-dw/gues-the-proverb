@@ -2194,7 +2194,6 @@ GameObject:
   - component: {fileID: 2046017334}
   - component: {fileID: 2046017333}
   - component: {fileID: 2046017336}
-  - component: {fileID: 2046017337}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2285,16 +2284,3 @@ MonoBehaviour:
   LettersTextBox: {fileID: 1464267444}
   DataPath: 
   y: 0
---- !u!114 &2046017337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046017332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0250e741a4416df4c98b60a47ef4600d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextBox: {fileID: 1642834524}

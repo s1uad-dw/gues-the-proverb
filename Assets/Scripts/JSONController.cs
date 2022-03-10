@@ -30,10 +30,8 @@ namespace DataController
         public int PartyPlayersQuantity;
         public int PartyProverbsQuantity;
         public int PartyStep = 1;
-        public int RegistrationCurrentPlayer = 1;
         public int CurrentPlayer;
         public List<int> UsedProverbs = new List<int>();
-        //public Dictionary<string, int[]> oaoaoaoa = new Dictionary<string, int[]>();
         public List<string[]> Players = new List<string[]>();
         public string[,] proverbs =  
         {

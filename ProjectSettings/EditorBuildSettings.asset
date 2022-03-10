@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PartyRegistrationScene.unity
     guid: b7aae1df6a0ac184b90e710d16ee1475
+  - enabled: 1
+    path: Assets/Scenes/PartyGameScene.unity
+    guid: 3903c9b2b2e05bf4b9dd09482aade27a
   m_configObjects: {}
