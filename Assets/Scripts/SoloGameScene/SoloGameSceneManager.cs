@@ -76,17 +76,7 @@ public class SoloGameSceneManager : MonoBehaviour
             json.SaveToJson(DataPath);
         }
     }
-    public void ButtonHintPressed()
-    {
-        TextBox.text = createProverb.Proverb[y, 1];
-        InputBox.ActivateInputField();
-        json.data.HintQuantity += 1;
-        json.SaveToJson(DataPath);
-    }
-    public void ButtonMenuPressed()
-    {
-        json.SaveToJson(DataPath);
-        json.LoadFromJson(DataPath);
-        SceneManager.LoadScene(0);
-    }
+    public void ButtonHintPressed(){TextBox.text = createProverb.Proverb[y, 1];InputBox.ActivateInputField();
+        json.data.HintQuantity += 1;json.SaveToJson(DataPath);}
+    public void ButtonMenuPressed() { json.SaveToJson(DataPath); json.LoadFromJson(DataPath); SceneManager.LoadScene(0); }
 }
