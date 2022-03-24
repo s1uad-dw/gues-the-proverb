@@ -1,6 +1,7 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 using Newtonsoft.Json;
 
 namespace DataController
@@ -11,6 +12,7 @@ namespace DataController
         public Data data = new Data();
         public void LoadFromJson(string DataPath)
         {
+            //data = File.Exists(DataPath) ? JsonUtility.FromJson<Data>(File.ReadAllText(DataPath)) : new Data();
             data = File.Exists(DataPath) ? JsonConvert.DeserializeObject<Data>(File.ReadAllText(DataPath)) : new Data();
         }
         
@@ -33,13 +35,13 @@ namespace DataController
         public List<int> UsedProverbs = new List<int>();
         public List<string[]> Players = new List<string[]>();
         public string[] Exercises =
-        {"ОТЖИМАНИЯ", "ПРИСЕДАНИЯ"};
+        {"РћРўР–РРњРђРќРРЇ", "РџР РРЎР•Р”РђРќРРЇ"};
         public string[,] proverbs =  
         {
-            { "НЕ ПЛЮЙ В КОЛОДЕЦ ПРИГОДИТСЯ ВОДЫ НАПИТЬСЯ", "Не стоит портить то, что может тебе пригодиться." },
-            { "ПОД ЛЕЖАЧИЙ КАМЕНЬ И ВОДА НЕ ТЕЧЁТ", "Без собственного желания ничегоне добиться." },
-            { "БЕЗ ТРУДА НЕ ВЫЛОВИШЬ И РЫБКУ ИЗ ПРУДА", "Для выполнение даже простой задачи нужно прикладывать усилия." },
-            { "БОЛЬШЕ ПОСЛОВИЦ В ПЛАТНОЙ ВЕРСИИ ИГРЫ", "Так же в платной версии игры, количество пословиц постоянно увеличивается." }
+            { "РќР• РџР›Р®Р™ Р’ РљРћР›РћР”Р•Р¦ РџР РР“РћР”РРўРЎРЇ Р’РћР”Р« РќРђРџРРўР¬РЎРЇ", "РќР• РЎРўРћРРў РџРћР РўРРўР¬ Р§РўРћ-РўРћ РџР РћРЎРўРћ РўРђРљ, Р’Р•Р”Р¬ РћРќРћ РњРћР–Р•Рў РџРћРќРђР”РћР‘РРўР¬РЎРЇ." },
+            { "РђРџРџР•РўРРў РџР РРҐРћР”РРў Р’Рћ Р’Р Р•РњРЇ Р•Р”Р«", "Р§Р•Рњ Р“Р›РЈР‘Р–Р• Р’РќРРљРђР•РЁР¬ Рљ Р§Р•РњРЈ-Р›РР‘Рћ, РўР•Рњ Р‘РћР›Р¬РЁР• Р­РўРћ РЈР—РќРђРЃРЁР¬." },
+            { "Р‘РђР‘Рђ РЎ Р’РћР—РЈ РљРћР‘Р«Р›Р• Р›Р•Р“Р§Р•", "РћР‘ РЈРҐРћР”Р• РќР•РќРЈР–РќРћР“Рћ Р§Р•Р›РћР’Р•РљРђ, РќР• РЎРўРћР›Р¬ РџРћР›Р•Р—РќРћР“Рћ Р§Р•РњРЈ-Р›РР‘Рћ." },
+            { "Р‘Р•Р”Рђ РќРРљРћР“Р”Рђ РќР• РџР РРҐРћР”РРў РћР”РќРђ", "РћРќРђ РћР‘РЇР—РђРўР•Р›Р¬РќРћ В«РџР РРҐР’РђРўРРўВ» Р—Рђ РЎРћР‘РћР™ Р•Р©РЃ РћР”РќРЈ." }
     };
     }
 }

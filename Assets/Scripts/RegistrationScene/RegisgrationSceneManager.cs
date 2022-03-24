@@ -1,4 +1,5 @@
-using System;
+ï»¿using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,8 @@ public class RegisgrationSceneManager : MonoBehaviour
     public Button ButtonPrevious;
     public string DataPath;
     public void Start(){
-        DataPath = Application.persistentDataPath + "/Data.json"; json.LoadFromJson(DataPath);
-        
+        DataPath = Path.Combine(Application.persistentDataPath, "Data.json");
+
         if (json.data.Players.Count < json.data.PartyPlayersQuantity || json.data.Players.Count == 0) { UpdateTextBox(); }
         else { SceneManager.LoadScene(3); }}
     public void UpdateAll(){ UpdateData();
@@ -28,28 +29,28 @@ public class RegisgrationSceneManager : MonoBehaviour
         TouchScreenKeyboard.Android.closeKeyboardOnOutsideTap = false;
         switch (json.data.PartyStep){
             case 1:
-                TextBox.text = "ÂÂÅÄÈÒÅ ÊÎËËÈ×ÅÑÒÂÎ ÈÃÐÎÊÎÂ\n(2-3)"; InputBox.contentType = InputField.ContentType.IntegerNumber; InputBox.ActivateInputField(); break;
+                TextBox.text = "Ð’Ð’Ð•Ð”Ð˜Ð¢Ð• ÐšÐžÐ›Ð˜Ð§Ð•Ð¡Ð¢Ð’Ðž Ð˜Ð“Ð ÐžÐšÐžÐ’\n(2-3)"; InputBox.contentType = InputField.ContentType.IntegerNumber; InputBox.ActivateInputField(); break;
             case 2:
-                TextBox.text = "ÂÂÅÄÈÒÅ ÊÎËËÈ×ÅÑÒÂÎ ÏÎÑËÎÂÈÖ ÄËß ÊÀÆÄÎÃÎ ÈÃÐÎÊÀ\n(òîëüêî 1)"; InputBox.contentType = InputField.ContentType.IntegerNumber; InputBox.ActivateInputField(); break;
+                TextBox.text = "ÐšÐžÐ›Ð˜Ð§Ð•Ð¡Ð¢Ð’Ðž ÐŸÐžÐ¡Ð›ÐžÐ’Ð˜Ð¦ ÐÐ ÐšÐÐ–Ð”ÐžÐ“Ðž Ð˜Ð“Ð ÐžÐšÐ\n(Ð¼Ð°ÐºÑÐ¸Ð¼ÑƒÐ¼ 1)"; InputBox.contentType = InputField.ContentType.IntegerNumber; InputBox.ActivateInputField(); break;
             default:
-                TextBox.text = "ÂÂÅÄÈÒÅ ÈÌß ÈÃÐÎÊÀ ¹" + (json.data.Players.Count + 1); InputBox.contentType = InputField.ContentType.Name; InputBox.ActivateInputField(); break;}}
+                TextBox.text = "Ð’Ð’Ð•Ð”Ð˜Ð¢Ð• Ð˜ÐœÐ¯ Ð˜Ð“Ð ÐžÐšÐ â„–" + (json.data.Players.Count + 1); InputBox.contentType = InputField.ContentType.Name; InputBox.ActivateInputField(); break;}}
     public void UpdateData(){
         switch (TextBox.text){
-            case "ÂÂÅÄÈÒÅ ÊÎËËÈ×ÅÑÒÂÎ ÈÃÐÎÊÎÂ\n(2-3)":
+            case "Ð’Ð’Ð•Ð”Ð˜Ð¢Ð• ÐšÐžÐ›Ð˜Ð§Ð•Ð¡Ð¢Ð’Ðž Ð˜Ð“Ð ÐžÐšÐžÐ’\n(2-3)":
                 if (InputBox.text == "1"){json.data.PartyPlayersQuantity = 0; json.data.PartyProverbsQuantity = 0;
                     json.data.PartyStep = 1; json.data.CurrentPlayer = 0; json.data.UsedProverbs.Clear();
                     json.data.Players.Clear(); json.SaveToJson(DataPath); SceneManager.LoadScene(1);}
                 if (InputBox.text == "2" || InputBox.text == "3") { json.data.PartyPlayersQuantity = Convert.ToInt32(InputBox.text); InputBox.text = ""; UpdateTextBox();}
-                else{ /*StartCoroutine(cor.MessageCoroutine(2f, "Íåâåðíî ââåäåíû äàííûå" new Button[]{ButtonNext, ButtonPrevious }));*/ }break;
-            case "ÂÂÅÄÈÒÅ ÊÎËËÈ×ÅÑÒÂÎ ÏÎÑËÎÂÈÖ ÄËß ÊÀÆÄÎÃÎ ÈÃÐÎÊÀ\n(òîëüêî 1)":
+                else{ /*StartCoroutine(cor.MessageCoroutine(2f, "ÃÃ¥Ã¢Ã¥Ã°Ã­Ã® Ã¢Ã¢Ã¥Ã¤Ã¥Ã­Ã» Ã¤Ã Ã­Ã­Ã»Ã¥" new Button[]{ButtonNext, ButtonPrevious }));*/ }break;
+            case "ÐšÐžÐ›Ð˜Ð§Ð•Ð¡Ð¢Ð’Ðž ÐŸÐžÐ¡Ð›ÐžÐ’Ð˜Ð¦ ÐÐ ÐšÐÐ–Ð”ÐžÐ“Ðž Ð˜Ð“Ð ÐžÐšÐ\n(Ð¼Ð°ÐºÑÐ¸Ð¼ÑƒÐ¼ 1)":
                 if (InputBox.text == "1") { json.data.PartyProverbsQuantity = Convert.ToInt32(InputBox.text); InputBox.text = ""; UpdateTextBox();}
-                else {/*êîðóòèíà*/}break;
+                else {/*ÃªÃ®Ã°Ã³Ã²Ã¨Ã­Ã */}break;
             default:
                 if (InputBox.text != "") { json.data.Players.Add(new string[] { InputBox.text, "0", "0" }); InputBox.text = ""; UpdateTextBox();}
-                else {/*êîðóòèíà*/}break;}json.SaveToJson(DataPath);}
+                else {/*ÃªÃ®Ã°Ã³Ã²Ã¨Ã­Ã */}break;}json.SaveToJson(DataPath);}
     public void AddPlayer(){
         if (InputBox.text != ""){
-            json.data.Players.Add(new string[] { InputBox.text, "0", "0", "0" }/*[èìÿ èãðîêà, ïîñëîâèöû, âðåìÿ(ñåêóíäû), ïîäñêàçêè]*/);
+            json.data.Players.Add(new string[] { InputBox.text, "0", "0", "0" }/*[Ã¨Ã¬Ã¿ Ã¨Ã£Ã°Ã®ÃªÃ , Ã¯Ã®Ã±Ã«Ã®Ã¢Ã¨Ã¶Ã», Ã¢Ã°Ã¥Ã¬Ã¿(Ã±Ã¥ÃªÃ³Ã­Ã¤Ã»), Ã¯Ã®Ã¤Ã±ÃªÃ Ã§ÃªÃ¨]*/);
             json.SaveToJson(DataPath);}
         else { json.data.PartyStep -= 1; }}
     public void ButtonNextStepPressed(){json.data.PartyStep += InputBox.text != "" ? 1 : 0; json.SaveToJson(DataPath); UpdateAll(); InputBox.text = "";}

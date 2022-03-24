@@ -1,4 +1,5 @@
-using System.Collections;
+ï»¿using System.Collections;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,13 +18,13 @@ public class SoloGameSceneManager : MonoBehaviour
     public string DataPath;
     void Start()
     {
-        DataPath = Application.persistentDataPath + "/Data.json";
+        DataPath = Path.Combine(Application.persistentDataPath, "Data.json");
         y = -1;
         json.LoadFromJson(DataPath);
         if (json.data.level < json.data.proverbs.GetLength(0))
         {
             createProverb.WordsList(json.data.level);
-            LevelInfoTextBox.text = "ÓÐÎÂÅÍÜ " + (json.data.level + 1);
+            LevelInfoTextBox.text = "Ð£Ð ÐžÐ’Ð•ÐÐ¬ " + (json.data.level + 1);
             UpdateAll();
         }
     }
@@ -54,7 +55,7 @@ public class SoloGameSceneManager : MonoBehaviour
             {
                 json.data.level += 1;
                 json.SaveToJson(DataPath);
-                LevelInfoTextBox.text = "ÓÐÎÂÅÍÜ " + (json.data.level+1);
+                LevelInfoTextBox.text = "Ð£Ð ÐžÐ’Ð•ÐÐ¬ " + (json.data.level+1);
                 createProverb.WordsList(json.data.level);
                 UpdateAll();
             }
@@ -63,11 +64,11 @@ public class SoloGameSceneManager : MonoBehaviour
     }
     public void ButtonReadyPressed()
     {
-        if (InputBox.text.ToUpper().Replace('¨', 'Å') == createProverb.Proverb[y, 0].Replace('¨', 'Å'))
+        if (InputBox.text.ToUpper().Replace('Ð', 'Ð•') == createProverb.Proverb[y, 0].Replace('Ð', 'Ð•'))
         {
             json.data.RightAnswerQuantity += 1;
             json.SaveToJson(DataPath);
-            //êîðóòèíà
+
             UpdateAll();
         }
         else

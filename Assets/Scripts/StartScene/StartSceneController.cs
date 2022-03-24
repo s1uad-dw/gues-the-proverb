@@ -1,7 +1,8 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DataController;
+using System.IO;
 
 public class StartSceneController : MonoBehaviour
 {
@@ -14,9 +15,9 @@ public class StartSceneController : MonoBehaviour
     public void ButtonPartyGamePressed() { SceneManager.LoadScene(2); }
     public void ButtonStatisticPressed()
     {
-        json.LoadFromJson(Application.persistentDataPath + "/Data.json");
-        RightAnswerQuantity.text = "œ–¿¬»À‹Õ€’ Œ“¬≈“Œ¬\n" + json.data.RightAnswerQuantity;
-        HintQuantity.text = "œŒƒ— ¿«Œ \n" + json.data.HintQuantity;
-        UnrightAnswerQuantity.text = "Õ≈œ–¿¬»À‹Õ€’ Œ“¬≈“Œ¬\n" + json.data.UnrightAnswerQuantity;
+        json.LoadFromJson(Path.Combine(Application.persistentDataPath, "Data.json"));
+        RightAnswerQuantity.text = "–ü–†–ê–í–ò–õ–¨–ù–´–• –û–¢–í–ï–¢–û–í\n" + json.data.RightAnswerQuantity;
+        HintQuantity.text = "–ü–û–î–°–ö–ê–ó–û–ö\n" + json.data.HintQuantity;
+        UnrightAnswerQuantity.text = "–ù–ï–ü–†–ê–í–ò–õ–¨–ù–´–• –û–¢–í–ï–¢–û–í\n" + json.data.UnrightAnswerQuantity;
     }
 }

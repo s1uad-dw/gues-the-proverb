@@ -1,4 +1,5 @@
-using System;
+Ôªøusing System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,12 +32,12 @@ public class PartyGameSceneManager : MonoBehaviour
     void Start()
     {
         y = -1;
-        DataPath = Application.persistentDataPath + "/Data.json";
+        DataPath = Path.Combine(Application.persistentDataPath, "Data.json");
         json.LoadFromJson(DataPath);
         UpdatePlayer();
     }
     public void UpdatePlayer(){
-        /*ÍÓÛÚËÌ‡*/
+        /*√™√Æ√∞√≥√≤√®√≠√†*/
         if (json.data.UsedProverbs.Count > json.data.PartyPlayersQuantity * json.data.PartyProverbsQuantity) { ResultList(); return; }
         if (json.data.CurrentPlayer >= json.data.PartyPlayersQuantity){json.data.CurrentPlayer = 0;}
         PlayerInfoTextBox.text = json.data.Players[json.data.CurrentPlayer][0];
@@ -50,7 +51,7 @@ public class PartyGameSceneManager : MonoBehaviour
             InputBox.ActivateInputField();TouchScreenKeyboard.Android.closeKeyboardOnOutsideTap = false;}
         else{y = -1;
             if (json.data.UsedProverbs.Count >= json.data.proverbs.GetLength(0)){
-                TextBox.text = "¡ÓÎ¸¯Â ÔÓÒÎÓ‚Ëˆ ‚ ÔÎ‡ÚÌÓÈ ‚ÂÒËË Ë„˚!";
+                TextBox.text = "–ë–û–õ–¨–®–ï –ü–û–°–õ–û–í–ò–¶ –í –ü–õ–ê–¢–ù–û–ô –í–ï–†–°–ò–ò –ò–ì–†–´!";
                 ButtonReady.SetActive(false); ButtonHint.SetActive(false);}
             else {PlayerTime = DateTime.Now - StartTime;
                 json.data.Players[json.data.CurrentPlayer][1] = Convert.ToString(Convert.ToDouble(json.data.Players[json.data.CurrentPlayer][1]) + PlayerTime.TotalSeconds);
@@ -66,17 +67,17 @@ public class PartyGameSceneManager : MonoBehaviour
     public void ResultList(){ ResultListWindow.SetActive(true); ResultListValue = ""; PlayerInfoTextBox.text = "";
         foreach (var player in json.data.Players){if (BestResult > (Convert.ToDouble(player[1]) * 0.1 * (Convert.ToDouble(player[2])+1))){
                 BestResult = (Convert.ToDouble(player[1]) * 0.1 * (Convert.ToDouble(player[2])+1)); BestPlayer = player;}}
-        ResultListValue += BestPlayer[0] + " - œŒ¡≈ƒ»“≈À‹\n\n\n"; json.data.Players.Remove(BestPlayer);
+        ResultListValue += BestPlayer[0] + " - –ü–û–ë–ï–î–ò–¢–ï–õ–¨\n\n\n"; json.data.Players.Remove(BestPlayer);
         foreach (var player in json.data.Players){ResultListValue += player[0] + "\n" + json.data.Exercises[rnd.Next(0, json.data.Exercises.Length)] 
                 + " - " + Convert.ToString(Math.Round(Convert.ToDouble(player[1]) * 0.1 * (Convert.ToDouble(player[2]) + 1), 0)) + "\n\n";}
         ResultTextBox.text = ResultListValue;}
     public void ButtonReadyPressed(){
-        if (InputBox.text.ToUpper().Replace('®', '≈') == createProverb.Proverb[y, 0].Replace('®', '≈')){
+        if (InputBox.text.ToUpper().Replace('–Å', '–ï') == createProverb.Proverb[y, 0].Replace('–Å', '–ï')){
             json.data.RightAnswerQuantity += 1;
             json.SaveToJson(DataPath);
             UpdateContent();}
         else{
-            /*ÍÓÛÚËÌ‡*/
+            /*√™√Æ√∞√≥√≤√®√≠√†*/
             json.SaveToJson(DataPath);}}
     public void ButtonHintPressed(){
         TextBox.text = createProverb.Proverb[y, 1];
